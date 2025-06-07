@@ -1,1 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Plataforma de Gestión de Stock</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-800">
+  <div class="max-w-4xl mx-auto p-4">
+    <h1 class="text-2xl font-bold mb-4">Bienvenido a la Plataforma de Stock</h1>
+    <div class="mb-4">
+      <label class="block">Usuario</label>
+      <input type="text" id="username" class="border p-2 w-full" />
+      <label class="block mt-2">Contraseña</label>
+      <input type="password" id="password" class="border p-2 w-full" />
+      <button onclick="login()" class="bg-blue-500 text-white px-4 py-2 mt-2">Iniciar Sesión</button>
+    </div>
+    <div id="dashboard" style="display:none;">
+      <h2 class="text-xl font-semibold mt-4">Productos</h2>
+      <div id="filtros" class="mb-2">
+        <button onclick="filtrar('Periféricos')" class="mr-2 px-2 py-1 bg-gray-200">Periféricos</button>
+        <button onclick="filtrar('Pantallas')" class="mr-2 px-2 py-1 bg-gray-200">Pantallas</button>
+        <button onclick="mostrarTodos()" class="px-2 py-1 bg-gray-300">Todos</button>
+      </div>
+      <table class="table-auto w-full border-collapse border">
+        <thead><tr><th>Producto</th><th>Precio</th><th>Acción</th></tr></thead>
+        <tbody id="tablaProductos"></tbody>
+      </table>
+      <div id="prediccion" class="mt-4 text-blue-600 font-bold"></div>
+    </div>
+  </div>
+<script>
+const usuarios = {
+  "admin": { password: "admin123", rol: "admin" },
+  "viewer": { password: "viewer123", rol: "viewer" }
+};
+let productos = [];
+let usuarioRol = "";
 
+function login() {
+  const user = document.getElementById("username").value;
+  const pass = document.getElementById("password").value;
+  if (usuarios[user] && usuarios[user].password === pass) {
+    usuarioRol = usuarios[user].rol;
+    document.getElementById("dashboard").style.display = "block";
+    cargarProductos();
+  } else {
+    alert("Credenciales incorrectas");
+  }
+}
+
+function cargarProductos() {
+  fetch("/productos")
+    .then(r => r.json())
+    .then(data => {
+      productos = data;
+      mostrarProductos(data);
+    });
+}
+
+function mostrarProductos(lista) {
+  const tabla = document.getElementById("tablaProductos");
+  tabla.innerHTML = "";
+  lista.forEach(p => {
+    tabla.innerHTML += `
+      <tr>
+        <td>${p.nombre}</td>
+        <td>$${p.precio}</td>
+        <td>
+          ${usuarioRol === "admin" ? `<button onclick="predecir('${p.id}')">Predecir</button>` : "-"}
+        </td>
+      </tr>`;
+  });
+}
+
+function predecir(id) {
+  fetch("/predict", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ productId: id })
+  })
+  .then(r => r.json())
+  .then(data => {
+    document.getElementById("prediccion").innerText = "Predicción: " + data.prediccion;
+  });
+}
+
+function filtrar(categoria) {
+  const filtrados = productos.filter(p => p.categoria === categoria);
+  mostrarProductos(filtrados);
+}
+
+function mostrarTodos() {
+  mostrarProductos(productos);
+}
+</script>
+</body>
+</html
