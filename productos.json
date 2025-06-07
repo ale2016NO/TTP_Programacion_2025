@@ -1,0 +1,20 @@
+[
+  {
+    "id": "P001",
+    "nombre": "Mouse",
+    "categoria": "Perif\u00e9ricos",
+    "precio": 1200
+  },
+  {
+    "id": "P002",
+    "nombre": "Teclado",
+    "categoria": "Perif\u00e9ricos",
+    "precio": 2800
+  },
+  {
+    "id": "P003",
+    "nombre": "Monitor",
+    "categoria": "Pantallas",
+    "precio": 8000
+  }
+]
