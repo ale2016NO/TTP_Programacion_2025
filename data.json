@@ -1,0 +1,82 @@
+{
+    "users": {
+        "admin": {
+            "password": "admin123",
+            "role": "admin"
+        },
+        "viewer": {
+            "password": "viewer123",
+            "role": "viewer"
+        }
+    },
+    "products": [
+        {
+            "id": "P001",
+            "name": "Laptop Gamer X",
+            "quantity": 12,
+            "price": 1450.0
+        },
+        {
+            "id": "P002",
+            "name": "Monitor Curvo 27\"",
+            "quantity": 25,
+            "price": 490.5
+        },
+        {
+            "id": "P003",
+            "name": "Teclado Mec\u00e1nico RGB",
+            "quantity": 50,
+            "price": 89.99
+        },
+        {
+            "id": "P004",
+            "name": "Mouse Gamer",
+            "quantity": 50,
+            "price": 49.0
+        },
+        {
+            "id": "P005",
+            "name": "modelo",
+            "quantity": 5,
+            "price": 10.0
+        },
+        {
+            "id": "P006",
+            "name": "modelos",
+            "quantity": 25,
+            "price": 5.0
+        }
+    ],
+    "sales_history": [
+        {
+            "productId": "P001",
+            "date": "2024-01-07",
+            "unitsSold": 5
+        },
+        {
+            "productId": "P001",
+            "date": "2024-01-14",
+            "unitsSold": 7
+        },
+        {
+            "productId": "P001",
+            "date": "2024-01-21",
+            "unitsSold": 4
+        },
+        {
+            "productId": "P001",
+            "date": "2024-01-28",
+            "unitsSold": 8
+        },
+        {
+            "productId": "P002",
+            "date": "2024-01-07",
+            "unitsSold": 10
+        },
+        {
+            "productId": "P002",
+            "date": "2024-01-14",
+            "unitsSold": 12
+        }
+    ]
+}
