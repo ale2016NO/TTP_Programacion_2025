@@ -113,6 +113,12 @@ def logout():
     session.pop('user', None)
     return redirect('/')
 
+from flask import send_file
+
+@app.route('/test_api')
+def test_api():
+    return send_file('test_api.html')
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=81)
 
